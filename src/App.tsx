@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, Activity, ShieldAlert, ListChecks } from 'lucide-react';
+import { ArrowRight, Activity, ShieldAlert, ListChecks, Search, HelpCircle, FileText, CheckCircle2, ChevronRight, Menu } from 'lucide-react';
 
 const AppLogo = ({ className = "w-8 h-8" }: { className?: string }) => (
   <svg viewBox="0 0 100 100" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -10,96 +10,25 @@ const AppLogo = ({ className = "w-8 h-8" }: { className?: string }) => (
   </svg>
 );
 
-const PhoneMockup1 = () => (
-  <div className="relative w-[280px] h-[580px] bg-white rounded-[40px] shadow-2xl border-[8px] border-[#1a1a1a] overflow-hidden flex flex-col">
-    <div className="absolute top-0 inset-x-0 h-6 bg-[#1a1a1a] rounded-b-3xl w-40 mx-auto z-20"></div>
-    <div className="flex-1 overflow-y-auto bg-gray-50 p-4 pt-10 pb-24 no-scrollbar">
-      <h2 className="text-xl font-bold text-gray-900 mb-1 font-sans">What brings you here?</h2>
-      <p className="text-sm text-gray-500 mb-6 font-sans">Select your main symptom</p>
-
-      <div className="grid grid-cols-2 gap-2 mb-6">
-        {['Headache', 'Fever', 'Diarrhea', 'Constipation', 'Cough', 'Nasal Congestion', 'Allergy', 'Heartburn'].map((symptom) => (
-          <div key={symptom} className="bg-white border border-gray-200 rounded-xl p-3 text-center text-sm font-medium text-gray-700 shadow-sm font-sans">
-            {symptom}
-          </div>
-        ))}
-      </div>
-
-      <div className="bg-white border border-yellow-400 rounded-xl p-3 mb-4">
-        <div className="bg-yellow-400 text-white text-[10px] font-bold px-2 py-1 rounded-full inline-block mb-2 font-sans">DISCLAIMER</div>
-        <p className="text-xs text-gray-700 font-sans">Educational use only. Consult a pharmacist before taking any medication.</p>
-      </div>
-    </div>
-    <div className="absolute bottom-0 inset-x-0 p-4 bg-white border-t border-gray-100">
-      <div className="w-full bg-[#4ade80] text-white text-center py-3 rounded-xl font-bold shadow-md font-sans cursor-pointer hover:bg-[#22c55e] transition-colors">
-        Continue
-      </div>
+const StaticPhoneMockup = ({ src, alt, className = "" }: { src: string, alt: string, className?: string }) => (
+  <div className={`shrink-0 bg-slate-900 rounded-[44px] p-2 sm:p-3 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.2)] border-[4px] sm:border-[6px] border-slate-900 overflow-hidden relative ${className}`}>
+    <div className="absolute top-0 inset-x-0 h-4 sm:h-6 bg-slate-900 rounded-b-2xl w-24 sm:w-32 mx-auto z-40" />
+    <div className="h-full w-full rounded-[30px] overflow-hidden bg-white flex flex-col relative z-10">
+      <img src={src} alt={alt} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
     </div>
   </div>
 );
 
-const PhoneMockup2 = () => (
-  <div className="relative w-[280px] h-[580px] bg-white rounded-[40px] shadow-2xl border-[8px] border-[#1a1a1a] overflow-hidden flex flex-col">
-    <div className="absolute top-0 inset-x-0 h-6 bg-[#1a1a1a] rounded-b-3xl w-40 mx-auto z-20"></div>
-    <div className="flex-1 overflow-y-auto bg-gray-50 p-4 pt-10 pb-24 no-scrollbar space-y-4">
-
-      <div className="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm">
-        <div className="flex justify-between items-start mb-2">
-          <h3 className="font-bold text-lg text-gray-900 font-sans">aspirin</h3>
-        </div>
-        <div className="bg-gray-50 rounded-lg p-3 mb-3">
-          <p className="text-xs text-gray-500 mb-1 font-sans">Available Brands:</p>
-          <p className="text-sm text-gray-800 font-sans">Aspocid, Aspirin Bayer, Cevamol (effervescent)</p>
-        </div>
-        <div className="bg-red-50 border border-red-400 rounded-lg p-3 space-y-1">
-          <p className="text-xs text-red-600 flex items-center gap-1 font-sans font-medium">⚠️ Risk of Reye syndrome in children</p>
-          <p className="text-xs text-red-600 flex items-center gap-1 font-sans font-medium">⚠️ GI irritation</p>
-          <p className="text-xs text-red-600 flex items-center gap-1 font-sans font-medium">⚠️ Avoid in bleeding disorders</p>
-        </div>
-        <p className="text-xs text-gray-400 mt-3 font-sans">Max use: 3 days</p>
-      </div>
-
-      <div className="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm">
-        <div className="flex justify-between items-start mb-2">
-          <h3 className="font-bold text-lg text-gray-900 font-sans">naproxen</h3>
-          <span className="bg-[#4ade80] text-white text-[10px] font-bold px-2 py-1 rounded-full font-sans">SAFE</span>
-        </div>
-        <p className="text-sm text-gray-600 mb-3 font-sans">Topical only per EDA OTC list.</p>
-        <div className="bg-gray-50 rounded-lg p-3 mb-3">
-          <p className="text-xs text-gray-500 mb-1 font-sans">Available Brands:</p>
-          <p className="text-sm text-gray-800 font-sans">Proxen gel, Aleve gel</p>
-        </div>
-        <div className="bg-red-50 border border-red-400 rounded-lg p-3 space-y-1">
-          <p className="text-xs text-red-600 flex items-center gap-1 font-sans font-medium">⚠️ Topical only</p>
-          <p className="text-xs text-red-600 flex items-center gap-1 font-sans font-medium">⚠️ Avoid in 3rd trimester</p>
-        </div>
-        <p className="text-xs text-gray-400 mt-3 font-sans">Max use: 7 days</p>
-      </div>
-
-    </div>
-    <div className="absolute bottom-0 inset-x-0 p-4 bg-white border-t border-gray-100">
-      <div className="w-full bg-[#4ade80] text-white text-center py-3 rounded-xl font-bold shadow-md font-sans cursor-pointer hover:bg-[#22c55e] transition-colors">
-        Start Over
-      </div>
-    </div>
-  </div>
-);
+// --- Main Page Component ---
 
 export default function App() {
-  // Download count starts at 0 and only increments on actual successful download clicks
-  const [downloadCount, setDownloadCount] = useState(0);
   const [isDownloading, setIsDownloading] = useState(false);
 
   const handleDownload = () => {
     if (isDownloading) return;
-    
     setIsDownloading(true);
-    // Simulate the time it takes to prepare and start the APK download
     setTimeout(() => {
       setIsDownloading(false);
-      setDownloadCount(prev => prev + 1);
-      
-      // Trigger actual file download
       const link = document.createElement('a');
       link.href = '/DruggedApp.apk';
       link.download = 'DruggedApp.apk';
@@ -115,147 +44,206 @@ export default function App() {
       <motion.nav 
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="px-6 md:px-12 py-8 flex justify-between items-center border-b border-gray-100"
+        transition={{ duration: 0.8 }}
+        className="px-6 md:px-12 py-8 flex justify-between items-center border-b border-gray-100 sticky top-0 bg-white/80 backdrop-blur-xl z-50"
       >
-        <div className="flex items-center gap-4">
-          <AppLogo className="w-10 h-10 drop-shadow-sm" />
-          <div className="text-[10px] md:text-xs font-bold tracking-[0.25em] uppercase text-gray-900">DruggedApp</div>
+        <div className="flex items-center gap-3">
+          <AppLogo className="w-9 h-9" />
+          <div className="text-[15px] font-black tracking-[-0.01em] text-gray-900">DruggedApp</div>
         </div>
-        <button 
-          onClick={handleDownload} 
-          className="text-[10px] md:text-xs font-bold tracking-[0.15em] uppercase border border-gray-200 text-gray-600 px-6 py-3 hover:border-[#27ae60] hover:text-[#27ae60] rounded-xl transition-colors"
-        >
-          Download APK
-        </button>
+        <div className="hidden md:flex items-center gap-10 text-sm font-semibold text-gray-500">
+          <a href="#features" className="hover:text-gray-900 transition-colors">Capabilities</a>
+          <a href="#security" className="hover:text-gray-900 transition-colors">Safety</a>
+          <button 
+            onClick={handleDownload} 
+            className="bg-gray-900 text-white px-8 py-3.5 rounded-2xl text-[13px] font-bold hover:bg-gray-800 transition-all hover:scale-105 active:scale-95"
+          >
+            Get Started
+          </button>
+        </div>
       </motion.nav>
 
       {/* Hero Section */}
-      <main className="max-w-[1400px] mx-auto px-6 md:px-12 pt-20 pb-32 grid lg:grid-cols-2 gap-16 lg:gap-8 items-center">
-        <motion.div 
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: { opacity: 0 },
-            visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
-          }}
-          className="max-w-2xl"
-        >
-          <motion.h1 
-            variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 1, ease: "easeOut" } } }}
-            className="font-mono text-5xl md:text-[94px] font-bold text-left leading-tight md:leading-[82.5px] tracking-tight mb-6 md:mb-10 text-gray-900"
-          >
-            Clarity in <br/>
-            <span className="italic text-[#27ae60] font-light">medication.</span>
-          </motion.h1>
-          <motion.p 
-            variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 1, ease: "easeOut" } } }}
-            className="font-mono text-base md:text-[19px] font-bold max-w-md text-gray-500 mb-10 md:mb-16 leading-relaxed"
-          >
-            The definitive medical guide for Over-The-Counter drugs. Stripped of noise, designed for precision.
-          </motion.p>
-          
+      <main className="pt-20 pb-24 border-b border-gray-100 overflow-hidden">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 text-center lg:text-left flex flex-col lg:flex-row items-center gap-12">
           <motion.div 
-            variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { duration: 1, ease: "easeOut" } } }}
-            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-6 sm:gap-10 w-full sm:w-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="flex-1 max-w-3xl mx-auto lg:mx-0"
           >
-            <button 
-              onClick={handleDownload}
-              disabled={isDownloading}
-              className="bg-[#27ae60] text-white px-10 py-5 text-xs tracking-[0.2em] uppercase font-bold hover:bg-[#219653] shadow-xl shadow-[#27ae60]/20 transition-all disabled:opacity-50 flex items-center justify-center gap-4 group rounded-2xl w-full sm:w-auto"
-            >
-              {isDownloading ? 'Initializing...' : 'Get The App'}
-              {!isDownloading && <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />}
-            </button>
+            <h1 className="text-5xl sm:text-6xl md:text-[88px] font-black text-gray-900 leading-[1.0] md:leading-[0.95] tracking-[-0.04em] mb-8 lg:mb-10 lg:pr-12">
+              Master your medicine cabinet.
+            </h1>
+            <p className="text-lg md:text-2xl font-medium text-gray-400 mb-10 lg:mb-14 leading-relaxed tracking-tight max-w-2xl lg:max-w-none mx-auto">
+              The definitive pharmacist in your pocket. Access 23,000+ Egyptian medications, analyzed for safety and clarity.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-6">
+              <button 
+                onClick={handleDownload}
+                disabled={isDownloading}
+                className="bg-[#27ae60] text-white px-12 py-5 rounded-[22px] text-[17px] font-bold hover:bg-[#219653] shadow-2xl shadow-[#27ae60]/40 transition-all active:scale-95 flex items-center justify-center gap-3 group"
+              >
+                {isDownloading ? 'Initializing...' : 'Get Started Now'}
+                {!isDownloading && <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />}
+              </button>
+              <div className="flex items-center justify-center gap-4 px-6 text-gray-400">
+                <span className="text-[14px] font-bold">Trusted by more than 5 doctors and 3K patients</span>
+              </div>
+            </div>
           </motion.div>
-        </motion.div>
+        </div>
 
-        <div className="relative flex justify-center lg:justify-end mt-12 lg:mt-0">
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
-            className="relative z-10"
-          >
-            <PhoneMockup1 />
-          </motion.div>
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 0.4, x: 0 }}
-            transition={{ duration: 1.2, ease: "easeOut", delay: 0.4 }}
-            className="absolute top-16 -left-12 z-0 hidden md:block transform -rotate-6 scale-90 blur-[1px]"
-          >
-            <PhoneMockup2 />
-          </motion.div>
+        {/* Grid Gallery */}
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 mt-16 md:mt-24 relative z-10 w-full mb-16">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            {[
+              { src: "/1_welcome.png", alt: "Welcome Screen" },
+              { src: "/2_symptoms.png", alt: "Symptoms Screen" },
+              { src: "/3_search.png", alt: "Search Screen" },
+              { src: "/4_search_active.png", alt: "Search Results" },
+              { src: "/5_search_list.png", alt: "Search List" },
+              { src: "/6_details.png", alt: "Drug Details" },
+              { src: "/7_report.png", alt: "Report Issue" },
+              { src: "/8_extra.png", alt: "Additional Screenshot" }
+            ].map((img, i) => (
+              <div 
+                key={i} 
+                className={`transform hover:-translate-y-2 transition-transform duration-500 shadow-2xl rounded-3xl overflow-hidden border-slate-900 bg-slate-900 ${
+                  i === 0 
+                  ? 'col-span-2 row-span-2 md:col-span-2 md:row-span-2 shadow-[0_20px_50px_-15px_rgba(39,174,96,0.3)] border-8 aspect-[1/2] md:aspect-auto md:h-[600px] lg:h-[700px]' 
+                  : 'col-span-1 border-4 aspect-[1/2.2]'
+                }`}
+              >
+                <img 
+                  src={img.src} 
+                  alt={img.alt} 
+                  className={`w-full h-full rounded-2xl bg-[#0B1120] ${i === 0 ? 'object-cover object-top' : 'object-cover'}`}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </main>
 
-      {/* Modern Features Grid */}
-      <section className="py-24 bg-gray-50/50 border-t border-gray-100">
+      {/* Expanded Features Section */}
+      <section id="features" className="py-32 bg-slate-50/50 border-t border-gray-100">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <motion.h2 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-4xl md:text-5xl font-serif text-gray-900 mb-4"
-            >
-              Everything you need to know.
-            </motion.h2>
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-lg text-gray-500 font-sans"
-            >
-              A powerful, intuitive guide to over-the-counter medications, designed for safety and clarity.
-            </motion.p>
+          <div className="max-w-2xl mb-24">
+            <h2 className="text-4xl md:text-6xl font-black text-gray-900 mb-8 tracking-[-0.02em]">
+              Professional tools for better care.
+            </h2>
+            <p className="text-xl text-gray-400 font-medium leading-relaxed">
+              DruggedApp provides uncompromised medical logic for domestic OTC medications.
+            </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
             {[
-              { icon: Activity, title: "Symptom Analysis", desc: "Select your symptoms from a structured index to instantly locate relevant OTC categories." },
-              { icon: ShieldAlert, title: "Safety Profiles", desc: "Uncompromising alerts for contraindications, age restrictions, and pregnancy safety." },
-              { icon: ListChecks, title: "Brand Alternatives", desc: "A comprehensive registry of commercial brands mapped directly to active ingredients." }
+              { icon: Search, title: "Universal Search", desc: "Instantly find active ingredients, commercial names, and medical categories." },
+              { icon: ShieldAlert, title: "Safety Profiles", desc: "Rigorous alerts for contraindications, pediatric restrictions, and pregnancy grades." },
+              { icon: ListChecks, title: "Brand Alternatives", desc: "Map any medication to dozens of equivalent commercial brands available in Egypt." },
+              { icon: Activity, title: "Symptom Mapper", desc: "From common symptoms to targeted cures. A structured path to relief." },
+              { icon: FileText, title: "Data Reporting", desc: "Crowdsourced accuracy. Report data issues directly from within the app for review." },
+              { icon: CheckCircle2, title: "Verified Guide", desc: "Educational datasets curated to respect official medical protocols." }
             ].map((feat, i) => (
               <motion.div 
                 key={i} 
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-50px" }}
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0, transition: { duration: 0.6, delay: i * 0.15, ease: "easeOut" } }
-                }}
-                className="bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm hover:shadow-xl hover:shadow-[#27ae60]/10 transition-all group hover:-translate-y-1"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="group cursor-default"
               >
-                <div className="w-14 h-14 bg-[#27ae60]/10 text-[#27ae60] rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 group-hover:bg-[#27ae60] group-hover:text-white transition-all duration-300">
-                  <feat.icon size={28} strokeWidth={1.5} />
+                <div className="w-16 h-16 bg-white rounded-[24px] flex items-center justify-center mb-8 shadow-sm border border-gray-100 group-hover:bg-[#27ae60] group-hover:text-white transition-all duration-300 group-hover:scale-110 group-hover:-rotate-3">
+                  <feat.icon size={28} strokeWidth={2.5} className="text-[#27ae60] group-hover:text-white transition-colors" />
                 </div>
-                <h3 className="text-2xl font-serif text-gray-900 mb-3">{feat.title}</h3>
-                <p className="text-gray-500 font-sans leading-relaxed">{feat.desc}</p>
+                <h3 className="text-2xl font-black text-gray-900 mb-4 tracking-tight">{feat.title}</h3>
+                <p className="text-gray-400 font-medium leading-relaxed">{feat.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <motion.footer 
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, ease: "easeOut" }}
-        className="px-6 md:px-12 py-16 flex flex-col md:flex-row justify-between items-center gap-8 text-[9px] uppercase tracking-[0.2em] text-gray-500 font-sans"
-      >
-        <div className="flex items-center gap-3">
-          <AppLogo className="w-6 h-6 grayscale opacity-50" />
-          <div>&copy; {new Date().getFullYear()} DruggedApp</div>
+      {/* Safety Section */}
+      <section id="security" className="py-32 bg-gray-900 text-white overflow-hidden relative">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 grid lg:grid-cols-2 gap-24 items-center">
+          <div>
+            <h2 className="text-4xl md:text-6xl font-black mb-10 leading-[0.95] tracking-tight">Built for medical precision.</h2>
+            <div className="space-y-10">
+              {[
+                { t: "Offline Database", d: "Access critical drug data even without an active internet connection." },
+                { t: "Unbiased Results", d: "Zero advertisements. We prioritize medical efficacy over brand promotion." },
+                { t: "Symptom Privacy", d: "Your diagnostic flows are local and private to your device." }
+              ].map((item, i) => (
+                <div key={i} className="flex gap-6">
+                  <div className="w-1.5 h-12 bg-[#27ae60] rounded-full" />
+                  <div>
+                    <h4 className="text-xl font-black mb-2">{item.t}</h4>
+                    <p className="text-gray-400 font-medium">{item.d}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="relative h-[500px] flex items-center justify-center">
+            <div className="absolute w-[800px] h-[800px] bg-[#27ae60]/10 rounded-full blur-[120px]" />
+            <div className="relative z-10 bg-white/5 backdrop-blur-2xl p-10 rounded-[40px] border border-white/10 max-w-sm">
+              <ShieldAlert size={80} strokeWidth={1} className="text-[#27ae60] mb-8" />
+              <div className="space-y-4">
+                <div className="h-2 w-2/3 bg-white/10 rounded-full" />
+                <div className="h-2 w-full bg-white/10 rounded-full" />
+                <div className="h-2 w-1/2 bg-white/10 rounded-full" />
+              </div>
+              <p className="mt-8 text-gray-400 font-medium text-sm leading-relaxed italic">
+                * Our database is verified against the Egyptian Drug Authority (EDA). Always consult your doctor before starting any medication. Do not self-diagnose or self-medicate.
+              </p>
+            </div>
+          </div>
         </div>
-        <div className="text-center max-w-xs leading-relaxed">Educational use only. Always consult a licensed medical professional.</div>
-        <div>All rights reserved</div>
-      </motion.footer>
+      </section>
+
+      {/* Footer */}
+      <footer className="px-6 md:px-12 py-24 bg-white border-t border-gray-100">
+        <div className="max-w-[1400px] mx-auto grid md:grid-cols-2 lg:grid-cols-4 gap-16">
+          <div className="col-span-1 lg:col-span-2">
+            <div className="flex items-center gap-3 mb-8">
+              <AppLogo />
+              <div className="text-[20px] font-black text-gray-900">DruggedApp</div>
+            </div>
+            <p className="text-gray-400 font-medium max-w-sm leading-relaxed mb-10">
+              Transforming how patients understand medication in Egypt. Simple, safe, and reliable.
+            </p>
+          </div>
+          <div>
+            <h4 className="font-black text-gray-900 mb-8 uppercase text-xs tracking-widest">Platform</h4>
+            <div className="flex flex-col gap-4 text-gray-400 font-bold text-sm">
+              <a href="#" className="hover:text-gray-900">Features</a>
+              <a href="#" className="hover:text-gray-900">Safety Guide</a>
+              <a href="#" className="hover:text-gray-900">APK Download</a>
+            </div>
+          </div>
+          <div>
+            <h4 className="font-black text-gray-900 mb-8 uppercase text-xs tracking-widest">Support / Contact</h4>
+            <div className="flex flex-col gap-4 text-gray-400 font-bold text-sm">
+              <a href="#" className="hover:text-gray-900">Report Issue</a>
+              <a href="#" className="hover:text-gray-900">Medical Privacy</a>
+              <a href="mailto:weroperking@gmail.com" className="hover:text-gray-900 text-[#27ae60]">
+                weroperking@gmail.com
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className="max-w-[1400px] mx-auto mt-24 pt-8 border-t border-gray-50 flex flex-col md:flex-row justify-between gap-6 text-[11px] font-bold text-gray-300 uppercase tracking-widest">
+          <div>&copy; {new Date().getFullYear()} DruggedApp. Expertly crafted for healing.</div>
+          <div className="flex gap-8">
+            <span className="text-red-300/50">Educational Use Only</span>
+            <span>All rights reserved</span>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
