@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight, Activity, ShieldAlert, ListChecks, Search, HelpCircle, FileText, CheckCircle2, ChevronRight, Menu } from 'lucide-react';
+import { ArrowRight, Activity, ShieldAlert, ListChecks, Search, HelpCircle, FileText, CheckCircle2, ChevronRight, Menu, Star, StarHalf, X } from 'lucide-react';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from './firebase';
 
 const AppLogo = ({ className = "w-8 h-8" }: { className?: string }) => (
   <svg viewBox="0 0 100 100" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -24,18 +26,25 @@ const StaticPhoneMockup = ({ src, alt, className = "" }: { src: string, alt: str
 export default function App() {
   const [isDownloading, setIsDownloading] = useState(false);
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     if (isDownloading) return;
     setIsDownloading(true);
+
+    try {
+      // Secretly track the download click in Firebase without disturbing the user
+      await addDoc(collection(db, 'download_clicks'), {
+        clickedAt: serverTimestamp(),
+        userAgent: navigator.userAgent
+      });
+    } catch (error) {
+      console.warn("Analytics error (non-blocking): ", error);
+    }
+
     setTimeout(() => {
       setIsDownloading(false);
-      const link = document.createElement('a');
-      link.href = '/DruggedApp.apk';
-      link.download = 'DruggedApp.apk';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }, 1500);
+      // Direct download link generated from Google Drive ID
+      window.location.href = 'https://drive.google.com/uc?export=download&id=1j461o46j6Rd7BZxurd21nWilBXEvjcvo';
+    }, 800);
   };
 
   return (
